@@ -3,491 +3,348 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staff Interface - Tough as a Tank Challenge</title>
+    <title>Staff Interface - Tough as a Tank</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
-            background: #f3f4f6;
-            line-height: 1.6;
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+            background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
             color: white;
-            padding: 2rem;
-            text-align: center;
+            padding: 20px;
+            min-height: 100vh;
         }
-        
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-        
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
         }
-        
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+            color: #FF3333;
+        }
+
+        .subtitle {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ccc;
+        }
+
         .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
         }
-        
+
         .stat-card {
-            background: white;
-            padding: 1.5rem;
+            background: rgba(255, 51, 51, 0.1);
+            padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 2px solid #FF3333;
+            min-width: 200px;
             text-align: center;
         }
-        
+
         .stat-number {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: bold;
-            margin-bottom: 0.5rem;
+            color: #FF3333;
         }
-        
+
         .stat-label {
-            color: #666;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            color: #ccc;
+            margin-top: 5px;
         }
-        
-        .main-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
-        }
-        
-        .card {
-            background: white;
-            border-radius: 10px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .card h2 {
-            color: #1f2937;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-        
-        .search-box {
-            position: relative;
-            margin-bottom: 1rem;
-        }
-        
-        .search-box input {
-            width: 100%;
-            padding: 12px 40px 12px 12px;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-        
-        .search-box input:focus {
-            outline: none;
-            border-color: #dc2626;
-        }
-        
-        .search-icon {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #9ca3af;
-        }
-        
-        .participants-list {
-            max-height: 500px;
-            overflow-y: auto;
-        }
-        
-        .participant-item {
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 0.5rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .participant-item:hover {
-            border-color: #9ca3af;
-        }
-        
-        .participant-item.selected {
-            border-color: #dc2626;
-            background: #fef2f2;
-        }
-        
-        .participant-name {
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-bottom: 0.25rem;
-        }
-        
-        .participant-company {
-            color: #666;
-            margin-bottom: 0.25rem;
-        }
-        
-        .participant-contact {
-            color: #999;
-            font-size: 0.9rem;
-        }
-        
-        .participant-score {
-            float: right;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-        
-        .participant-score.has-score {
-            color: #059669;
-        }
-        
-        .participant-score.no-score {
-            color: #f59e0b;
-        }
-        
-        .score-entry {
-            text-align: center;
-            padding: 2rem 1rem;
-        }
-        
-        .score-entry.empty {
-            color: #9ca3af;
-        }
-        
-        .selected-participant {
-            background: #f9fafb;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .score-input {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            font-size: 24px;
-            text-align: center;
-            margin-bottom: 1rem;
-            font-weight: bold;
-        }
-        
-        .score-input:focus {
-            outline: none;
-            border-color: #dc2626;
-        }
-        
-        .submit-score-btn {
-            width: 100%;
-            background: #dc2626;
+
+        .export-btn {
+            display: block;
+            margin: 0 auto 30px auto;
+            padding: 15px 30px;
+            background: #FF3333;
             color: white;
             border: none;
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 18px;
+            border-radius: 50px;
+            font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
-            transition: background 0.2s;
+            text-decoration: none;
+            transition: all 0.3s ease;
         }
-        
-        .submit-score-btn:hover {
-            background: #991b1b;
+
+        .export-btn:hover {
+            background: #CC0000;
+            transform: translateY(-2px);
         }
-        
-        .submit-score-btn:disabled {
-            background: #9ca3af;
-            cursor: not-allowed;
+
+        table {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            border-collapse: collapse;
         }
-        
-        .alert {
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
+
+        thead {
+            background: #FF3333;
+        }
+
+        th {
+            padding: 15px;
+            text-align: left;
             font-weight: bold;
         }
-        
-        .alert.success {
-            background: #d1fae5;
-            color: #064e3b;
-            border: 2px solid #10b981;
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
-        .alert.info {
-            background: #dbeafe;
-            color: #1e40af;
-            border: 2px solid #3b82f6;
+
+        tbody tr:hover {
+            background: rgba(255, 255, 255, 0.05);
         }
-        
+
+        .score-input {
+            width: 100px;
+            padding: 8px;
+            border: 2px solid #FF3333;
+            border-radius: 5px;
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            font-size: 1rem;
+        }
+
+        .update-btn {
+            padding: 8px 20px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .update-btn:hover {
+            background: #218838;
+        }
+
+        .delete-btn {
+            padding: 8px 20px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-left: 10px;
+        }
+
+        .delete-btn:hover {
+            background: #c82333;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 40px;
+            color: #ccc;
+            font-size: 1.2rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2rem;
+        }
+
         @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
+            table {
+                font-size: 0.9rem;
             }
-            
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
+
+            th, td {
+                padding: 10px 8px;
             }
-            
-            .header h1 {
+
+            .score-input {
+                width: 80px;
+            }
+
+            h1 {
                 font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🏆 Staff Interface</h1>
-        <p>Tough as a Tank Challenge Score Entry</p>
-    </div>
-    
     <div class="container">
-        <!-- Stats Cards -->
+        <h1>Staff Interface</h1>
+        <p class="subtitle">Tough as a Tank Challenge - Record Scores</p>
+
         <div class="stats">
             <div class="stat-card">
-                <div class="stat-number" style="color: #3b82f6;" id="totalParticipants">0</div>
-                <div class="stat-label">Total Registered</div>
+                <div class="stat-number" id="totalParticipants">0</div>
+                <div class="stat-label">Total Participants</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number" style="color: #059669;" id="completedScores">0</div>
-                <div class="stat-label">Completed</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" style="color: #f59e0b;" id="pendingScores">0</div>
-                <div class="stat-label">Pending</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" style="color: #dc2626;" id="topScore">0</div>
-                <div class="stat-label">Top Score (lbs)</div>
+                <div class="stat-number" id="scoredParticipants">0</div>
+                <div class="stat-label">Scores Recorded</div>
             </div>
         </div>
-        
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Participant Search -->
-            <div class="card">
-                <h2>Find Participant</h2>
-                
-                <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Search by name, company, or email...">
-                    <span class="search-icon">🔍</span>
-                </div>
-                
-                <div class="participants-list" id="participantsList">
-                    <!-- Participants will be loaded here -->
-                </div>
-            </div>
-            
-            <!-- Score Entry -->
-            <div class="card">
-                <h2>Enter Score</h2>
-                
-                <div id="alertContainer"></div>
-                
-                <div id="scoreEntryContent" class="score-entry empty">
-                    <div style="font-size: 4rem; margin-bottom: 1rem;">👥</div>
-                    <p>Select a participant from the list to enter their score</p>
-                </div>
-            </div>
+
+        <a href="/api/export-csv" class="export-btn" download>📥 Export All Data (CSV)</a>
+
+        <div id="tableContainer">
+            <div class="loading">Loading participants...</div>
         </div>
     </div>
 
     <script>
-        let participants = [];
-        let selectedParticipant = null;
-        
-        // Load participants on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            loadParticipants();
-            setupEventListeners();
-        });
-        
-        function setupEventListeners() {
-            document.getElementById('searchInput').addEventListener('input', filterParticipants);
-        }
-        
+        const API_BASE = window.location.origin + '/api';
+
         async function loadParticipants() {
             try {
-                const response = await fetch('/api/participants');
-                participants = await response.json();
-                updateStats();
-                displayParticipants(participants);
+                const response = await fetch(`${API_BASE}/participants`);
+                const participants = await response.json();
+
+                updateStats(participants);
+                renderTable(participants);
             } catch (error) {
-                console.error('Failed to load participants:', error);
-                showAlert('Failed to load participants. Please refresh the page.', 'error');
+                console.error('Error loading participants:', error);
+                document.getElementById('tableContainer').innerHTML = 
+                    '<div class="no-data">Error loading participants. Please refresh the page.</div>';
             }
         }
-        
-        function updateStats() {
+
+        function updateStats(participants) {
             const total = participants.length;
-            const completed = participants.filter(p => p.score !== null).length;
-            const pending = total - completed;
-            const scores = participants.filter(p => p.score !== null).map(p => p.score);
-            const topScore = scores.length > 0 ? Math.max(...scores) : 0;
-            
+            const scored = participants.filter(p => p.score !== null).length;
+
             document.getElementById('totalParticipants').textContent = total;
-            document.getElementById('completedScores').textContent = completed;
-            document.getElementById('pendingScores').textContent = pending;
-            document.getElementById('topScore').textContent = topScore;
+            document.getElementById('scoredParticipants').textContent = scored;
         }
-        
-        function displayParticipants(participantsToShow) {
-            const container = document.getElementById('participantsList');
-            
-            if (participantsToShow.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: #9ca3af; padding: 2rem;">No participants found</p>';
+
+        function renderTable(participants) {
+            if (participants.length === 0) {
+                document.getElementById('tableContainer').innerHTML = 
+                    '<div class="no-data">No participants yet. Waiting for registrations...</div>';
                 return;
             }
-            
-            container.innerHTML = participantsToShow.map(participant => `
-                <div class="participant-item" onclick="selectParticipant(${participant.id})">
-                    <div class="participant-score ${participant.score ? 'has-score' : 'no-score'}">
-                        ${participant.score ? participant.score + ' lbs' : 'No Score'}
-                    </div>
-                    <div class="participant-name">${participant.name}</div>
-                    <div class="participant-company">${participant.company}</div>
-                    <div class="participant-contact">${participant.email}</div>
-                </div>
-            `).join('');
-        }
-        
-        function filterParticipants() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = participants.filter(p => 
-                p.name.toLowerCase().includes(searchTerm) ||
-                p.company.toLowerCase().includes(searchTerm) ||
-                p.email.toLowerCase().includes(searchTerm)
-            );
-            displayParticipants(filtered);
-        }
-        
-        function selectParticipant(id) {
-            selectedParticipant = participants.find(p => p.id === id);
-            
-            // Update visual selection
-            document.querySelectorAll('.participant-item').forEach(item => {
-                item.classList.remove('selected');
-            });
-            event.target.closest('.participant-item').classList.add('selected');
-            
-            // Show score entry form
-            showScoreEntry();
-        }
-        
-        function showScoreEntry() {
-            const container = document.getElementById('scoreEntryContent');
-            
-            container.className = 'score-entry';
-            container.innerHTML = `
-                <div class="selected-participant">
-                    <div style="font-weight: bold; font-size: 1.2rem; margin-bottom: 0.5rem;">${selectedParticipant.name}</div>
-                    <div style="color: #666; margin-bottom: 0.5rem;">${selectedParticipant.company}</div>
-                    <div style="color: #999; font-size: 0.9rem;">${selectedParticipant.phone}</div>
-                    ${selectedParticipant.score ? `<div style="color: #f59e0b; margin-top: 0.5rem; font-weight: bold;">Current best: ${selectedParticipant.score} lbs</div>` : ''}
-                </div>
-                
-                <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">New Attempt Score (lbs)</label>
-                <input type="number" id="scoreInput" class="score-input" placeholder="Enter score..." min="0" max="500" step="0.1">
-                <p style="font-size: 0.8rem; color: #666; margin-bottom: 1rem;">System will automatically keep the higher score</p>
-                
-                <button onclick="submitScore()" id="submitBtn" class="submit-score-btn">
-                    Record Attempt
-                </button>
+
+            const tableHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Company</th>
+                            <th>Score (lbs)</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${participants.map(p => `
+                            <tr id="row-${p.id}">
+                                <td>${p.id}</td>
+                                <td>${p.name}</td>
+                                <td>${p.email}</td>
+                                <td>${p.phone || '-'}</td>
+                                <td>${p.company || '-'}</td>
+                                <td>
+                                    <input 
+                                        type="number" 
+                                        class="score-input" 
+                                        id="score-${p.id}" 
+                                        value="${p.score || ''}" 
+                                        placeholder="Enter score"
+                                    >
+                                </td>
+                                <td>
+                                    <button class="update-btn" onclick="updateScore(${p.id})">
+                                        Update Score
+                                    </button>
+                                    <button class="delete-btn" onclick="deleteParticipant(${p.id}, '${p.name}')">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
             `;
-            
-            // Focus on score input
-            setTimeout(() => {
-                document.getElementById('scoreInput').focus();
-            }, 100);
+
+            document.getElementById('tableContainer').innerHTML = tableHTML;
         }
-        
-        async function submitScore() {
-            const scoreInput = document.getElementById('scoreInput');
-            const submitBtn = document.getElementById('submitBtn');
-            const score = parseFloat(scoreInput.value);
-            
-            if (!score || score <= 0) {
-                showAlert('Please enter a valid score', 'error');
+
+        async function updateScore(id) {
+            const scoreInput = document.getElementById(`score-${id}`);
+            const score = parseInt(scoreInput.value);
+
+            if (!score || score < 0) {
+                alert('Please enter a valid score');
                 return;
             }
-            
-            submitBtn.textContent = 'Recording Score...';
-            submitBtn.disabled = true;
-            
+
             try {
-                const response = await fetch(`/api/scores/${selectedParticipant.id}`, {
+                const response = await fetch(`${API_BASE}/score`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ score })
+                    body: JSON.stringify({ id, score })
                 });
-                
-                const result = await response.json();
-                
+
                 if (response.ok) {
-                    if (result.newRecord) {
-                        showAlert(`✅ New record! ${selectedParticipant.name}: ${score} lbs`, 'success');
-                    } else {
-                        showAlert(`ℹ️ Previous score was higher (${result.currentScore} lbs). Attempt recorded but not updated.`, 'info');
-                    }
-                    
-                    // Reload participants to update display
-                    await loadParticipants();
-                    
-                    // Clear selection
-                    selectedParticipant = null;
-                    document.getElementById('scoreEntryContent').className = 'score-entry empty';
-                    document.getElementById('scoreEntryContent').innerHTML = `
-                        <div style="font-size: 4rem; margin-bottom: 1rem;">👥</div>
-                        <p>Select a participant from the list to enter their score</p>
-                    `;
-                    
-                    // Clear search
-                    document.getElementById('searchInput').value = '';
-                    
+                    alert('Score updated successfully!');
+                    loadParticipants(); // Reload to update stats
                 } else {
-                    showAlert(result.error || 'Failed to submit score', 'error');
+                    alert('Failed to update score');
                 }
             } catch (error) {
-                showAlert('Network error. Please try again.', 'error');
+                console.error('Error updating score:', error);
+                alert('Error updating score');
             }
-            
-            submitBtn.textContent = 'Record Attempt';
-            submitBtn.disabled = false;
         }
-        
-        function showAlert(message, type) {
-            const container = document.getElementById('alertContainer');
-            const alert = document.createElement('div');
-            alert.className = `alert ${type}`;
-            alert.textContent = message;
-            
-            container.innerHTML = '';
-            container.appendChild(alert);
-            
-            // Auto-hide after 5 seconds
-            setTimeout(() => {
-                alert.remove();
-            }, 5000);
+
+        async function deleteParticipant(id, name) {
+            if (!confirm(`Are you sure you want to delete ${name}? This cannot be undone.`)) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/participants/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    alert('Participant deleted successfully');
+                    loadParticipants(); // Reload the list
+                } else {
+                    alert('Failed to delete participant');
+                }
+            } catch (error) {
+                console.error('Error deleting participant:', error);
+                alert('Error deleting participant');
+            }
         }
-        
-        // Auto-refresh every 30 seconds
-        setInterval(loadParticipants, 30000);
+
+        // Load participants on page load
+        loadParticipants();
+
+        // Auto-refresh every 10 seconds
+        setInterval(loadParticipants, 10000);
     </script>
 </body>
 </html>
