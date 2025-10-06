@@ -163,7 +163,8 @@
     
     // Show popup
     function showPopup() {
-        if (registrationComplete || popupShown) return;
+        // If already shown and visible, don't create duplicate
+        if (document.getElementById('toughTankPopup')) return;
         
         const popup = document.createElement('div');
         popup.innerHTML = createPopupHTML();
@@ -276,6 +277,11 @@
             }
         }, POPUP_REAPPEAR_DELAY);
     }
+    
+    // Expose function to manually trigger popup (for "Sign Up Now" button)
+    window.openToughTankPopup = function() {
+        showPopup();
+    };
     
     // Start when DOM is ready
     if (document.readyState === 'loading') {
