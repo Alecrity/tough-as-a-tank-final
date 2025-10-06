@@ -198,7 +198,7 @@
     // Load participant count
     async function loadParticipantCount() {
         try {
-            const response = await fetch(`${API_BASE}/participant-count`);
+            const response = await fetch(`${API_BASE}/count`);
             const data = await response.json();
             const countElement = document.getElementById('toughTankCount');
             if (countElement) {
