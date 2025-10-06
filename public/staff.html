@@ -204,6 +204,18 @@
 
         <a href="/api/export-csv" class="export-btn" download>📥 Export All Data (CSV)</a>
 
+        <div style="background: rgba(255, 51, 51, 0.1); border: 2px solid #FF3333; border-radius: 10px; padding: 30px; margin-bottom: 30px;">
+            <h2 style="margin-bottom: 20px; color: #FF3333;">Add Participant Manually</h2>
+            <form id="addParticipantForm" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                <input type="text" id="newName" placeholder="Name *" required style="padding: 12px; border: 2px solid #FF3333; border-radius: 5px; background: rgba(0,0,0,0.3); color: white; font-size: 1rem;">
+                <input type="email" id="newEmail" placeholder="Email *" required style="padding: 12px; border: 2px solid #FF3333; border-radius: 5px; background: rgba(0,0,0,0.3); color: white; font-size: 1rem;">
+                <input type="tel" id="newPhone" placeholder="Phone" style="padding: 12px; border: 2px solid #FF3333; border-radius: 5px; background: rgba(0,0,0,0.3); color: white; font-size: 1rem;">
+                <input type="text" id="newCompany" placeholder="Company" style="padding: 12px; border: 2px solid #FF3333; border-radius: 5px; background: rgba(0,0,0,0.3); color: white; font-size: 1rem;">
+                <button type="submit" style="padding: 12px 30px; background: #28a745; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 1rem;">Add Participant</button>
+            </form>
+            <p style="margin-top: 10px; color: #ccc; font-size: 0.9rem;">* Required fields</p>
+        </div>
+
         <div id="tableContainer">
             <div class="loading">Loading participants...</div>
         </div>
@@ -345,6 +357,44 @@
 
         // Auto-refresh every 10 seconds
         setInterval(loadParticipants, 10000);
+
+        // Handle add participant form
+        document.getElementById('addParticipantForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('newName').value.trim();
+            const email = document.getElementById('newEmail').value.trim();
+            const phone = document.getElementById('newPhone').value.trim();
+            const company = document.getElementById('newCompany').value.trim();
+
+            if (!name || !email) {
+                alert('Name and Email are required');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email, phone, company })
+                });
+
+                if (response.ok) {
+                    alert('Participant added successfully!');
+                    // Clear form
+                    document.getElementById('addParticipantForm').reset();
+                    // Reload participants
+                    loadParticipants();
+                } else {
+                    alert('Failed to add participant');
+                }
+            } catch (error) {
+                console.error('Error adding participant:', error);
+                alert('Error adding participant');
+            }
+        });
     </script>
 </body>
 </html>
